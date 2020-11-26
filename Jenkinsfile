@@ -7,6 +7,7 @@ pipeline{
         REPO =  sh(returnStdout: true,script: 'echo $repo').trim()
         BRANCH =  sh(returnStdout: true,script: 'echo $branch').trim()
         K8S_CONFIG = credentials('jenkins-k8s-config')
+        git_url = "https://github.com/yilingyi/jenkins-demo.git"
         NAMESPACE = "ygp"
       }
 
@@ -22,7 +23,8 @@ pipeline{
         // 定义第一个stage， 完成克隆源码的任务
         stage('Git'){
           steps{
-            git branch: '${BRANCH}', credentialsId: '', url: 'https://github.com/yilingyi/jenkins-demo.git'
+            //git branch: '${BRANCH}', credentialsId: '', url: 'https://github.com/yilingyi/jenkins-demo.git'
+            checkout([$class: 'GitSCM', branches: [[name: "${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'gitlab', url: "${git_url}"]]])
           }
         }
 
