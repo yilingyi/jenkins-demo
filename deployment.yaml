@@ -34,7 +34,7 @@ spec:
   type: LoadBalancer
 
 ---
-apiVersion: v1
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: jenkins-java-demo-ingress
