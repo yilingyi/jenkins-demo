@@ -32,3 +32,4 @@ spec:
   selector:
     app: jenkins-java-demo
   type: LoadBalancer
+  
