@@ -51,9 +51,8 @@ pipeline{
               sh "mkdir --help"
               sh "mkdir -p ~/.kube"
               sh "echo -n ${K8S_CONFIG} | base64 -d > ~/.kube/config"
-              sh "cat ~/.kube/config"
-              sh "pwd"
-              sh "find / -name deployment.yaml" 
+              sh "sed -e 's#{{image}}#${ORIGIN_REPO}/${REPO}:${IMAGE_TAG}#g' deployment.yaml"
+              sh "cat deployment.yaml"
               //step([$class: 'KubernetesDeploy', authMethod: 'certs', apiServerUrl: 'https://kubernetes.default.svc.cluster.local:443', credentialsId:'k8sCertAuth', secretNamespace: 'ygp', config: 'deployment.yaml',variableState: 'ORIGIN_REPO,REPO,IMAGE_TAG'])
             }
           }
