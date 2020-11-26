@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: jenkins-java-demo
-        image: {{image}}
+        image: registry-vpc.cn-shenzhen.aliyuncs.com/ygp-k8s/ack-jenkins-demo:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -32,4 +32,3 @@ spec:
   selector:
     app: jenkins-java-demo
   type: LoadBalancer
-  
