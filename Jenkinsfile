@@ -52,9 +52,9 @@ pipeline{
               sh "mkdir --help"
               sh "mkdir -p ~/.kube"
               sh "echo -n ${K8S_CONFIG} | base64 -d > ~/.kube/config"
-              sh "sed -e 's#{image}#${ORIGIN_REPO}/${REPO}:${IMAGE_TAG}#g' deployment.yaml"
-              sh "cat deployment.yaml"
-              sh "kubectl apply -f deployment.yaml --namespace=${NAMESPACE} --record"
+              sh "sed -e 's#{image}#${ORIGIN_REPO}/${REPO}:${IMAGE_TAG}#g' deployment.yaml > k8s-deployment.yaml"
+              sh "cat k8s-deployment.yaml"
+              sh "kubectl apply -f k8s-deployment.yaml --namespace=${NAMESPACE} --record"
               //step([$class: 'KubernetesDeploy', authMethod: 'certs', apiServerUrl: 'https://kubernetes.default.svc.cluster.local:443', credentialsId:'k8sCertAuth', secretNamespace: 'ygp', config: 'deployment.yaml',variableState: 'ORIGIN_REPO,REPO,IMAGE_TAG'])
             }
           }
