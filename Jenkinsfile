@@ -6,6 +6,7 @@ pipeline{
         ORIGIN_REPO =  sh(returnStdout: true,script: 'echo $origin_repo').trim()
         REPO =  sh(returnStdout: true,script: 'echo $repo').trim()
         BRANCH =  sh(returnStdout: true,script: 'echo $branch').trim()
+        K8S_CONFIG = credentials('jenkins-k8s-config')
       }
 
       // 定义本次构建使用哪个标签的构建环境，本示例中为 “slave-pipeline”
@@ -49,8 +50,7 @@ pipeline{
             container('kubectl') {
               sh "mkdir --help"
               sh "mkdir -p ~/.kube"
-              sh "echo 1234"
-              //sh "echo -n ${jenkins-k8s-config} > ~/.kube/config"
+              sh "echo -n ${K8S_CONFIG} | base64 -d > ~/.kube/config"
               sh "cat ~/.kube/config"
               step([$class: 'KubernetesDeploy', authMethod: 'certs', apiServerUrl: 'https://kubernetes.default.svc.cluster.local:443', credentialsId:'k8sCertAuth', secretNamespace: 'ygp', config: 'deployment.yaml',variableState: 'ORIGIN_REPO,REPO,IMAGE_TAG'])
             }
