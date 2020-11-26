@@ -23,7 +23,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: jenkins-java-demo
+  name: jenkins-java-demo-svc
 spec:
   ports:
   - port: 80
@@ -32,3 +32,18 @@ spec:
   selector:
     app: jenkins-java-demo
   type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Ingress
+metadata:
+  name: jenkins-java-demo-ingress
+spec:
+  rules:
+  - host: test.yilingyi.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: jenkins-java-demo-svc
+          servicePort: 80
