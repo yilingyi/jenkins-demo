@@ -52,7 +52,9 @@ pipeline{
               sh "mkdir -p ~/.kube"
               sh "echo -n ${K8S_CONFIG} | base64 -d > ~/.kube/config"
               sh "cat ~/.kube/config"
-              step([$class: 'KubernetesDeploy', authMethod: 'certs', apiServerUrl: 'https://kubernetes.default.svc.cluster.local:443', credentialsId:'k8sCertAuth', secretNamespace: 'ygp', config: 'deployment.yaml',variableState: 'ORIGIN_REPO,REPO,IMAGE_TAG'])
+              sh "pwd"
+              sh "find / -name deployment.yaml" 
+              //step([$class: 'KubernetesDeploy', authMethod: 'certs', apiServerUrl: 'https://kubernetes.default.svc.cluster.local:443', credentialsId:'k8sCertAuth', secretNamespace: 'ygp', config: 'deployment.yaml',variableState: 'ORIGIN_REPO,REPO,IMAGE_TAG'])
             }
           }
         }
