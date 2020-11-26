@@ -47,6 +47,7 @@ pipeline{
         stage('Deploy to Kubernetes') {
           steps {
             container('kubectl') {
+              sh "sleep(1200)"
               sh "mkdir -p ~/.kube"
               sh "echo -n ${jenkins-k8s-config} > ~/.kube/config"
               sh "cat ~/.kube/config"
