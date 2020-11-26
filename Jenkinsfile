@@ -49,7 +49,8 @@ pipeline{
             container('kubectl') {
               sh "mkdir --help"
               sh "mkdir -p ~/.kube"
-              sh "echo -n ${jenkins-k8s-config} > ~/.kube/config"
+              sh "echo 1234"
+              #sh "echo -n ${jenkins-k8s-config} > ~/.kube/config"
               sh "cat ~/.kube/config"
               step([$class: 'KubernetesDeploy', authMethod: 'certs', apiServerUrl: 'https://kubernetes.default.svc.cluster.local:443', credentialsId:'k8sCertAuth', secretNamespace: 'ygp', config: 'deployment.yaml',variableState: 'ORIGIN_REPO,REPO,IMAGE_TAG'])
             }
