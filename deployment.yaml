@@ -12,12 +12,12 @@ spec:
       labels:
         app: jenkins-java-demo
     spec:
-      containers:
-      - env:
+      containers: 
+      - name: jenkins-java-demo
+        env:
         - name: JAVA_OPTS
         - value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap
-            -XX:MaxRAMFraction=2 
-      - name: jenkins-java-demo
+            -XX:MaxRAMFraction=2
         image: {image}
         imagePullPolicy: Always
         ports:
